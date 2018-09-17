@@ -23,6 +23,7 @@ public class Main {
         Main.imprimeConstrutores(Pessoa.class);
         Main.imprimeMetodos(Pessoa.class);
 
+        System.out.println("\nDepois de emagrecer");
         final Method m = pessoa2.getClass().getMethod("emagrecer", new Class[] { String.class, double.class });
         m.invoke(pessoa2, new Object[] { "Pedro", 0.01 });
         System.out.println(pessoa2);
