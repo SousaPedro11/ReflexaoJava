@@ -51,6 +51,21 @@ public class Lambda {
     interface Calculator2 {
 
         public int calculate(int x);
+
+        default Calculator2 andThen(final Calculator2 after) {
+
+            return (final int x) -> after.calculate(this.calculate(x));
+        }
+
+        default Calculator2 soma(final Calculator2 after) {
+
+            return (final int x) -> after.calculate(x) + x;
+        }
+
+        default Calculator2 multi(final Calculator2 after) {
+
+            return (final int x) -> after.calculate(x) * x;
+        }
     }
 
     @FunctionalInterface
@@ -113,6 +128,12 @@ public class Lambda {
         System.out.println("Calc1: " + calc1.calculate(11, 2));
 
         System.out.println("Calc2: " + calc2.calculate(7));
+
+        System.out.println("Calc2.andThen: " + calc2.andThen(calc2).calculate(7));
+
+        System.out.println("Calc2.soma: " + calc2.soma(calc2).calculate(7));
+
+        System.out.println("Calc2.multi: " + calc2.multi(calc2).calculate(7));
 
         calc3.calculate(11);
     }
