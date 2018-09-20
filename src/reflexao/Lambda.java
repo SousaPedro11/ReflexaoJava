@@ -57,14 +57,19 @@ public class Lambda {
             return (final int x) -> after.calculate(this.calculate(x));
         }
 
-        default Calculator2 soma(final Calculator2 after) {
+        default Calculator2 compose(final Calculator2 before) {
 
-            return (final int x) -> after.calculate(x) + x;
+            return (final int x) -> this.calculate(before.calculate(x));
         }
 
-        default Calculator2 multi(final Calculator2 after) {
+        default Calculator2 soma(final Calculator2 calc) {
 
-            return (final int x) -> after.calculate(x) * x;
+            return (final int x) -> calc.calculate(x) + x;
+        }
+
+        default Calculator2 multi(final Calculator2 calc) {
+
+            return (final int x) -> calc.calculate(x) * x;
         }
     }
 
@@ -130,6 +135,8 @@ public class Lambda {
         System.out.println("Calc2: " + calc2.calculate(7));
 
         System.out.println("Calc2.andThen: " + calc2.andThen(calc2).calculate(7));
+
+        System.out.println("Calc2.compose: " + calc2.compose(calc2).calculate(7));
 
         System.out.println("Calc2.soma: " + calc2.soma(calc2).calculate(7));
 
